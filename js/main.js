@@ -48,7 +48,7 @@
 
 const ulElement = document.querySelector('.js-news');
 const liElement = document.querySelector('.js-list');
-
+let htmlCode = '';
 
 
 fetch(' http://beta.adalab.es/Easley-ejercicios-de-fin-de-semana/data/news.json')
@@ -57,19 +57,20 @@ fetch(' http://beta.adalab.es/Easley-ejercicios-de-fin-de-semana/data/news.json'
   })
   .then(function (films) {
 
-    let htmlCode = '';
-
-
     for (const film of films.news) {
-
-      htmlCode += `<li>${film.title}</li>`
-
-      console.log(film.title);
-
+      htmlCode += `<li>`
+      htmlCode += `<h2>${film.title}</h2>`
+      htmlCode += `<img src="${film.image}">`
+      htmlCode += `</li>`
       ulElement.innerHTML = htmlCode;
-
-
     }
 
 
   });
+
+
+
+// const images = document.createElement('img');
+// images.setAttribute('src', film.image);
+// ulElement.appendChild(images);
+// console.log(film.image);
