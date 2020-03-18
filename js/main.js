@@ -49,28 +49,46 @@
 const ulElement = document.querySelector('.js-news');
 const liElement = document.querySelector('.js-list');
 let htmlCode = '';
+let films = [];
+
+function getDataApi() {
+  fetch('http://beta.adalab.es/Easley-ejercicios-de-fin-de-semana/data/news.json')
+    .then(response => response.json())
+    .then(data => {
+
+      films = data.news;
+      paintNews();
 
 
-fetch(' http://beta.adalab.es/Easley-ejercicios-de-fin-de-semana/data/news.json')
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (films) {
+    });
 
-    for (const film of films.news) {
-      htmlCode += `<li>`
-      htmlCode += `<h2>${film.title}</h2>`
-      htmlCode += `<img src="${film.image}">`
-      htmlCode += `</li>`
-      ulElement.innerHTML = htmlCode;
-    }
+}
+
+const paintNews = () => {
+  let htmlCode = '';
+
+  for (const film of films) {
+    htmlCode += `<li class="news__item">`
+    htmlCode += `<h2 class="news__title" >${film.title}</h2>`
+    htmlCode += `<img class="news__image" src="${film.image}">`
+    htmlCode += `</li>`
+
+  }
+  ulElement.innerHTML = htmlCode;
+
+}
 
 
-  });
+
+for (let item of films) {
+  console.log(item);
+  if (item.includes('Mars' || item.includes('Martians'))) {
+    liElement.classlist.add('news__item--from-mars');
+
+  }
+
+  paintNews();
+}
 
 
-
-// const images = document.createElement('img');
-// images.setAttribute('src', film.image);
-// ulElement.appendChild(images);
-// console.log(film.image);
+getDataApi();
